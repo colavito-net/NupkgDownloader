@@ -33,7 +33,7 @@ Describe "Download-Nupkg"  {
             $ret;
         }
         Mock Copy-Item { }
-        Mock Watch-Directory { 
+        Mock Add-DirectoryWatch { 
             $watcher = New-MockObject -Type System.IO.FileSystemWatcher
             $handlers = { }
 
@@ -43,7 +43,7 @@ Describe "Download-Nupkg"  {
             }
             return $watchObject
         }
-        Mock Unwatch-Directory { }
+        Mock Remove-DirectoryWatch { }
     }
     Context "Normal execution without parameters" {
         BeforeEach {

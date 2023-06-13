@@ -16,7 +16,7 @@ Function Download-Nupkg
     )
 
     $tempDirectory = New-TemporaryDirectory
-    $watcherObject = Watch-Directory -Path $($tempDirectory.FullName)
+    $watcherObject = Add-DirectoryWatch -Path $($tempDirectory.FullName)
 
     try {
         $startParams = @{
@@ -57,7 +57,7 @@ Function Download-Nupkg
     }
     finally {
         if($null -ne $watcherObject) {
-            Unwatch-Directory -WatcherObject $watcherObject
+            Remove-DirectoryWatch -WatcherObject $watcherObject
         }
         if(Test-Path($tempDirectory.FullName)) {
             Write-Host "Removing $($tempDirectory.FullName).."

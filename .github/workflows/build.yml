@@ -28,6 +28,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Invoke-Pester
+        shell: pwsh
+        run: |
+          Invoke-Pester -EnableExit     
+
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0
         with:
