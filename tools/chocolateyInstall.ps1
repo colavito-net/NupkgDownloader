@@ -1,9 +1,21 @@
 ﻿
 $ErrorActionPreference = 'Stop';
-$_PSModulePath = Join-Path $PSHOME "Modules"
-$AllUsersModuleDir = Join-Path $_PSModulePath "NupkgDownloader"
-$PackageDir = Split-Path -Parent $PSScriptRoot
+function Install-To {
+    Param([string] $target)
 
-New-Item $AllUsersModuleDir/src -ItemType Directory -Force 
-Copy-Item $PackageDir/src/* $AllUsersModuleDir/src
-Copy-Item $PackageDir/NupkgDownloader.ps* $AllUsersModuleDir
+    $PackageDir = Split-Path -Parent $PSScriptRoot
+    $ModuleDir = Join-Path $target "NupkgDownloader"
+    
+    New-Item $ModuleDir/src -ItemType Directory -Force 
+    Copy-Item $PackageDir/src/* $ModuleDir/src
+    Copy-Item $PackageDir/NupkgDownloader.ps* $ModuleDir
+}
+
+$WindowsPowershellAllUsers = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\Modules"
+$WindowsPwshAllUsers = "$env:PROGRAMFILES\PowerShell\Modules"
+
+if ( $(Get-Command -ErrorAction SilentlyContinue pwsh )) { 
+    Install-To $WindowsPwshAllUsers
+}
+
+Install-To $WindowsPowershellAllUsers
