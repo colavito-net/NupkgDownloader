@@ -58,7 +58,7 @@ jobs:
         uses: crazy-max/ghaction-chocolatey@v2.2.0
         with:
           # Arguments to pass to Chocolatey
-          args: "pack -version ${{ env.GitVersion_NuGetVersionV2 }} -outputDirectory ${{ env.OutputDirectory }"
+          args: "pack -version ${{ env.GitVersion_NuGetVersionV2 }} -outputDirectory ${{ env.OutputDirectory }}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
