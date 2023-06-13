@@ -6,9 +6,9 @@ name: CI-build
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "release/*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "release/*" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0
         with: 
           useConfigFile: true
-          
+
       - name: Chocolatey Action
         # You may pin to the exact commit or the version.
         # uses: crazy-max/ghaction-chocolatey@5a5864861ce2c988001531e48993aa687c51f6c8
