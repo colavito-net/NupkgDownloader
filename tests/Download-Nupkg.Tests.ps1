@@ -50,7 +50,7 @@ Describe "Download-Nupkg"  {
             Download-Nupkg "fooPackage"
         }
         It "Creates a temp directory" {
-            Assert-MockCalled New-TemporaryDirectory
+            Assert-MockCalled New-TemporaryDirectoryXYZ
         }    
         It "Calls nuget to install the package to the temp directory" {
             Assert-MockCalled Start-Process -ParameterFilter {
