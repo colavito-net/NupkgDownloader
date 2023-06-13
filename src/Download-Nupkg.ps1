@@ -50,6 +50,11 @@ Function Download-Nupkg
         }
 
         Write-Host "Copying to '$OutputDirectory'..."
+
+        if(-not (Test-Path($OutputDirectory))) {
+            New-Item $OutputDirectory -ItemType Directory -Force 
+        }
+
         $nupkgs = Get-ChildItem -Recurse -Path $($tempDirectory.FullName) -Include *.nupkg 
         $nupkgs | ForEach-Object { 
             Copy-Item -Path $_.FullName -Destination $OutputDirectory 

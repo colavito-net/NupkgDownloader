@@ -4,7 +4,8 @@
 
 Describe "Download-Nupkg"  {
     BeforeEach {
-        Mock Test-Path { $True } 
+        Mock Test-Path {$True } 
+        Mock New-Item { } 
         Mock Remove-Item { }
         Mock Start-Process { 
             New-MockObject -Type System.Diagnostics.Process -Methods @{ WaitForExit = { param($delay) $true } } 
@@ -69,6 +70,9 @@ Describe "Download-Nupkg"  {
     }
     Context "Normal execution with parameters" {
         BeforeEach {
+            Mock Test-Path -ParameterFilter {$Path -eq "c:\foo\bar"} { $False }
+            Mock New-Item -ParameterFilter {$Path -eq "c:\foo\bar" -and $ItemType -eq "Directory"}  
+
             Download-Nupkg "fooPackage" -Version 1.2.3 -Prerelease -OutputDirectory "c:\foo\bar" -Source "http://foo/bar"
         }
         It "Calls nuget to install the package to the temp directory" {
@@ -88,6 +92,9 @@ Describe "Download-Nupkg"  {
         It "Removes the temporary directory" {
             Assert-MockCalled Remove-Item -ParameterFilter {$Path.StartsWith([System.IO.Path]::GetTempPath())}
         }     
+        It "Creates target directory if not found" {
+            Assert-MockCalled New-Item -ParameterFilter {$Path -eq "c:\foo\bar" -and $ItemType -eq "Directory"}  -Times 1
+        }  
     }    
     Context "Error occurs" {
         BeforeEach {
@@ -98,7 +105,7 @@ Describe "Download-Nupkg"  {
             Assert-MockCalled Remove-Item -ParameterFilter {$Path.StartsWith([System.IO.Path]::GetTempPath())}
         }     
         It "Does not remove the temporary directory when not found" {
-            Mock Test-Path { $False }
+            Mock Test-Path -ParameterFilter {$Path.StartsWith([System.IO.Path]::GetTempPath())} { $False }
             { Download-Nupkg "fooPackage" } | Should -Throw
             Assert-MockCalled Remove-Item -Times 0
         }     
