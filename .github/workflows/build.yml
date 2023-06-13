@@ -49,6 +49,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: nupkg-artifact
+          name: nupkgdownloader.${{ env.GitVersion_NuGetVersionV2 }}
           path: |
             **/*.nupkg
