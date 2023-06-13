@@ -1,0 +1,14 @@
+branches:
+  release:
+    mode: ContinuousDeployment
+  hotfix:
+    mode: ContinuousDeployment
+  feature:
+    mode: ContinuousDeployment  
+  bugfix:
+    regex: ^bugfix?[/-]
+    mode: ContinuousDeployment
+    source-branches: [ 'develop', 'release' ]
+ignore:
+  sha: []
+merge-message-formats: {}
