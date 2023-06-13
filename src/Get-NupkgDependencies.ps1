@@ -1,8 +1,8 @@
-Function Download-Nupkg
+Function Get-NupkgDependencies
 {
     <#
     .SYNOPSIS
-    Downloads a NUPKG and dependencies from Azure DevOps artifacts using NUGET
+    Downloads a NUPKG and dependencies a feed using Nuget.exe
     #>    
     Param(
         [Parameter(Mandatory=$true, Position=0)] [string] $PackageId,

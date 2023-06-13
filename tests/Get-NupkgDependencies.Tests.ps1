@@ -2,7 +2,7 @@
     Get-ChildItem $PSScriptRoot/../src/*.ps1 | ForEach-Object { . $_.FullName }
 }
 
-Describe "Download-Nupkg"  {
+Describe "Get-NupkgDependencies"  {
     BeforeEach {
         Mock Test-Path {$True } 
         Mock New-Item { } 
@@ -48,7 +48,7 @@ Describe "Download-Nupkg"  {
     }
     Context "Normal execution without parameters" {
         BeforeEach {
-            Download-Nupkg "fooPackage"
+            Get-NupkgDependencies "fooPackage"
         }
         It "Creates a temp directory" {
             Assert-MockCalled New-TemporaryDirectory
@@ -73,7 +73,7 @@ Describe "Download-Nupkg"  {
             Mock Test-Path -ParameterFilter {$Path -eq "c:\foo\bar"} { $False }
             Mock New-Item -ParameterFilter {$Path -eq "c:\foo\bar" -and $ItemType -eq "Directory"}  
 
-            Download-Nupkg "fooPackage" -Version 1.2.3 -Prerelease -OutputDirectory "c:\foo\bar" -Source "http://foo/bar"
+            Get-NupkgDependencies "fooPackage" -Version 1.2.3 -Prerelease -OutputDirectory "c:\foo\bar" -Source "http://foo/bar"
         }
         It "Calls nuget to install the package to the temp directory" {
             Assert-MockCalled New-TemporaryDirectory
@@ -101,12 +101,12 @@ Describe "Download-Nupkg"  {
             Mock Start-Process { throw "Some error occurred" }
         }
         It "Removes the temporary directory when found" {
-            { Download-Nupkg "fooPackage" } | Should -Throw
+            { Get-NupkgDependencies "fooPackage" } | Should -Throw
             Assert-MockCalled Remove-Item -ParameterFilter {$Path.StartsWith([System.IO.Path]::GetTempPath())}
         }     
         It "Does not remove the temporary directory when not found" {
             Mock Test-Path -ParameterFilter {$Path.StartsWith([System.IO.Path]::GetTempPath())} { $False }
-            { Download-Nupkg "fooPackage" } | Should -Throw
+            { Get-NupkgDependencies "fooPackage" } | Should -Throw
             Assert-MockCalled Remove-Item -Times 0
         }     
     }       
