@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package >
   <metadata>
-    <id>NupkgDownloader</id>
-    <title>NupkgDownloader</title>
+    <id>nupkgdownloader</id>
+    <title>nupkgdownloader</title>
     <version>$version$</version>
     <owners>rossobianero</owners>
     <authors>rossobianero</authors>
     <copyright>Copyright © rossobianero</copyright>
-    <projectUrl>https://github.com/rossobianero/NupkgDownloader</projectUrl>
-    <projectSourceUrl>https://github.com/rossobianero/NupkgDownloader</projectSourceUrl>
-    <tags>rossobianero NupkgDownloader</tags>
-    <description>Powershell module for retrieving packages from a nuget feed</description>
+    <projectUrl>https://github.com/rossobianero/nupkgdownloader</projectUrl>
+    <projectSourceUrl>https://github.com/rossobianero/nupkgdownloader</projectSourceUrl>
+    <tags>rossobianero nupkgdownloader</tags>
+    <description>Have you ever just wanted to download a nupkg file (perhaps for offline installation)?  And have you wanted all of its dependencies, too?  This </description>
     <dependencies>
         <dependency id="nuget.commandline" />
     </dependencies>
@@ -18,6 +18,6 @@
   <files>
     <file src="tools/*" target="tools" />
     <file src="src/*" target="src" />
-    <file src="NupkgDownloader.ps*" />
+    <file src="nupkgdownloader.ps*" />
   </files>
 </package>
