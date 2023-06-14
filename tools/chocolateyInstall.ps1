@@ -1,4 +1,5 @@
-﻿
+﻿. $PSScriptRoot/Definitions.ps1
+
 $ErrorActionPreference = 'Stop';
 function Install-To {
     Param([string] $target)
@@ -11,10 +12,7 @@ function Install-To {
     Copy-Item $PackageDir/NupkgDownloader.ps* $ModuleDir
 }
 
-$WindowsPowershellAllUsers = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\Modules"
-$WindowsPwshAllUsers = "$env:PROGRAMFILES\PowerShell\Modules"
-
-if ( $(Get-Command -ErrorAction SilentlyContinue pwsh )) { 
+if ( $(Get-Command -ErrorAction SilentlyContinue pwsh)) { 
     Install-To $WindowsPwshAllUsers
 }
 

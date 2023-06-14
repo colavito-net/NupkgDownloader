@@ -1,8 +1,9 @@
-﻿
+﻿. $PSScriptRoot/Definitions.ps1
+
 $ErrorActionPreference = 'SilentlyContinue'
 
-$WindowsPowershellModuleDir = Join-Path "$env:SystemRoot\System32\WindowsPowerShell\v1.0\Modules" "NupkgDownloader"
-$WindowsPwshModuleDir = Join-Path "$env:PROGRAMFILES\PowerShell\Modules" "NupkgDownloader"
+$WindowsPowershellModuleDir = Join-Path $WindowsPowershellAllUsers "NupkgDownloader"
+$WindowsPwshModuleDir = Join-Path $WindowsPwshAllUsers "NupkgDownloader"
 
 Remove-Module NupkgDownloader
 
