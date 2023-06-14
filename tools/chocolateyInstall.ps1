@@ -7,7 +7,7 @@ function Install-To {
     $PackageDir = Split-Path -Parent $PSScriptRoot
     $ModuleDir = Join-Path $target "NupkgDownloader"
     
-    New-Item $ModuleDir/src -ItemType Directory -Force 
+    New-Item $ModuleDir/src -ItemType Directory -Force | Out-Null
     Copy-Item $PackageDir/src/* $ModuleDir/src
     Copy-Item $PackageDir/NupkgDownloader.ps* $ModuleDir
 }
